@@ -1,7 +1,14 @@
+import { Footer, Navbar } from "@/components/layout"
 import React from "react"
 
 const Page = () => {
-    return <div>Page</div>
+    return (
+        <div>
+            <Navbar/>
+
+            <Footer/>
+        </div>
+    )
 }
 
 export default Page

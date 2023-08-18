@@ -1,7 +1,17 @@
-import React from "react"
+import React, { FC, ReactNode } from "react"
+import "@/assets/css/globals.css"
 
-const Layout = () => (
-    <div>Layout</div>
+type Props = {
+    children: ReactNode
+}
+
+
+const RootLayout: FC<Props> = ({ children }) => (
+    <html lang="en">
+    <body>
+    {children}
+    </body>
+    </html>
 )
 
-export default Layout
+export default RootLayout
