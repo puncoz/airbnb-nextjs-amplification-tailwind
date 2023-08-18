@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CheckUser {
+  email: String!
+}
+
 input Credentials {
   password: String!
   username: String!
@@ -157,6 +161,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User!
   deleteWishlist(where: WishlistWhereUniqueInput!): Wishlist!
   login(credentials: Credentials!): UserInfo!
+  signup(credentials: SignupCredentials!): UserInfo!
   updateListing(data: ListingUpdateInput!, where: ListingWhereUniqueInput!): Listing!
   updateTrip(data: TripUpdateInput!, where: TripWhereUniqueInput!): Trip!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
@@ -168,8 +173,10 @@ type Query {
   _tripsMeta(where: TripWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
   _wishlistsMeta(where: WishlistWhereInput): MetaQueryPayload!
+  checkUser(checkUserValues: CheckUser!): User!
   listing(where: ListingWhereUniqueInput!): Listing
   listings(orderBy: [ListingOrderByInput!], skip: Float, take: Float, where: ListingWhereInput): [Listing!]!
+  me: User!
   trip(where: TripWhereUniqueInput!): Trip
   trips(orderBy: [TripOrderByInput!], skip: Float, take: Float, where: TripWhereInput): [Trip!]!
   user(where: UserWhereUniqueInput!): User
@@ -182,6 +189,13 @@ type Query {
 enum QueryMode {
   Default
   Insensitive
+}
+
+input SignupCredentials {
+  firstName: String!
+  lastName: String!
+  password: String!
+  username: String!
 }
 
 enum SortOrder {
