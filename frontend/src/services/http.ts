@@ -1,7 +1,7 @@
 import { setupInterceptors } from "@/services/interceptors"
 import axios from "axios"
 
-const apiUrl = "http://localhost:3000"
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 const http = setupInterceptors(axios.create())
 

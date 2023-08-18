@@ -1,25 +1,25 @@
 import { getToken } from "@/services/token"
 import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios"
 
-const apiUrl = "http://localhost:3000"
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-const logOnDev = (message: string, error = false) => {
+const logOnDev = (message: string, data: object = {}, error = false) => {
     if (process.env.NODE_ENV === "production") {
         return
     }
 
     if (error) {
-        console.error(message)
+        console.error(message, data)
         return
     }
 
-    console.info(message)
+    console.info(message, data)
 }
 
 const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     const { method, url } = config
 
-    logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Request: [${JSON.stringify(config)}]`)
+    logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Request:`, config)
 
     const { origin } = new URL(url as string)
     const allowedOrigins = [apiUrl]
@@ -36,7 +36,7 @@ const onError = (error: AxiosError): Promise<AxiosError> => {
     const { message } = error
     const { method, url } = error.config as AxiosRequestConfig
 
-    logOnDev(`🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${message}`)
+    logOnDev(`🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${message}`, {}, true)
 
     return Promise.reject(error)
 }

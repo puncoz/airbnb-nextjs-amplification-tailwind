@@ -3,6 +3,8 @@ import userDefaultImage from "@/assets/img/user-placeholder.png"
 import { ContextMenu } from "@/components/common"
 import { ContextMenuOption } from "@/components/common/context-menu"
 import { AirBnbLogo } from "@/components/svg"
+import { useUtils } from "@/hooks/useUtils"
+import { clearToken } from "@/services/token"
 import { useStore } from "@/store"
 import Image from "next/image"
 import React, { FC, useState } from "react"
@@ -12,7 +14,8 @@ import { RxHamburgerMenu } from "react-icons/rx"
 const Navbar: FC = () => {
     const [isContextMenuVisible, setIsContextMenuVisible] = useState(false)
 
-    const { toggleAuthModal } = useStore()
+    const { toggleAuthModal, userInfo, isLoggedIn, setUserInfo, setIsLoggedIn } = useStore()
+    const { getInitials } = useUtils()
 
     const contextMenuOptions: ContextMenuOption[] = [
         {
@@ -20,28 +23,76 @@ const Navbar: FC = () => {
             callback: () => {
                 toggleAuthModal()
                 setIsContextMenuVisible(false)
-            }
+            },
         },
         {
             name: "Signup",
             callback: () => {
                 toggleAuthModal()
                 setIsContextMenuVisible(false)
-            }
+            },
         },
         {
             name: "Airbnb your home",
             callback: () => {
                 toggleAuthModal()
                 setIsContextMenuVisible(false)
-            }
+            },
         },
         {
             name: "Help",
             callback: () => {
                 toggleAuthModal()
                 setIsContextMenuVisible(false)
-            }
+            },
+        },
+    ]
+
+    const authenticatedContextMenuOptions: ContextMenuOption[] = [
+        {
+            name: "Messages",
+            callback: () => {
+                setIsContextMenuVisible(false)
+            },
+        },
+        {
+            name: "Notifications",
+            callback: () => {
+                setIsContextMenuVisible(false)
+            },
+        },
+        {
+            name: "Trips",
+            callback: () => {
+                setIsContextMenuVisible(false)
+            },
+        },
+        {
+            name: "Wishlists",
+            callback: () => {
+                setIsContextMenuVisible(false)
+            },
+        }, {
+            name: "Manage Listings",
+            callback: () => {
+                setIsContextMenuVisible(false)
+            },
+        },
+        {
+            name: "Help",
+            callback: () => {
+                setIsContextMenuVisible(false)
+            },
+        },
+        {
+            name: "Logout",
+            callback: () => {
+                setUserInfo(null)
+                setIsLoggedIn(false)
+                clearToken()
+                localStorage.clear()
+                setIsContextMenuVisible(false)
+            },
         },
     ]
 
@@ -69,16 +120,21 @@ const Navbar: FC = () => {
                                         rounded-full hover:shadow-xl transition-all duration-500"
                             onClick={() => setIsContextMenuVisible(true)}>
                             <RxHamburgerMenu/>
-                            <span>
+                            {userInfo ? (
+                                <span className="flex justify-center items-center bg-black text-white
+                                                h-7 w-7 text-sm rounded-full">
+                                    {getInitials(userInfo.firstName, userInfo.lastName)}
+                                </span>
+                            ) : (
                                 <Image src={userDefaultImage} alt="profile" height={30} width={30}/>
-                            </span>
+                            )}
                         </li>
                     </ul>
                 </div>
             </div>
 
             {isContextMenuVisible && (
-                <ContextMenu options={contextMenuOptions}
+                <ContextMenu options={isLoggedIn ? authenticatedContextMenuOptions : contextMenuOptions}
                              coordinates={{ x: window.innerWidth - 250, y: 70 }}
                              contextMenu={isContextMenuVisible}
                              setContextMenu={setIsContextMenuVisible}/>

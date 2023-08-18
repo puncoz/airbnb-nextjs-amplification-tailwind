@@ -1,28 +1,67 @@
 "use client"
 import { FormInput } from "@/components/common"
+import { checkUser, login, signup } from "@/services/auth"
 import { useStore } from "@/store"
 import React, { FC, useCallback, useState } from "react"
 import { IoMdClose } from "react-icons/io"
 
 const AuthModal: FC = () => {
-    const { toggleAuthModal } = useStore()
+    const { toggleAuthModal, setIsLoggedIn, setUserInfo } = useStore()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
 
-    const [userFound, setUserFound] = useState(null)
+    const [userFound, setUserFound] = useState<Boolean | null>(null)
 
-    const verifyEmail = async () => {
+    const verifyEmail = useCallback(async () => {
+        if (!email) {
+            return
+        }
 
-    }
-    const handleLogin = async () => {
+        const status = await checkUser(email)
+        setUserFound(status)
+    }, [email])
 
-    }
-    const handleSignUp = async () => {
+    const handleLogin = useCallback(async () => {
+        if (!email || !password) {
+            return
+        }
 
-    }
+        const user = await login(email, password)
+
+        if (!user) {
+            return alert("Login failed!")
+        }
+
+        setUserInfo(user)
+        setIsLoggedIn(true)
+
+        toggleAuthModal()
+    }, [email, password, setIsLoggedIn, setUserInfo, toggleAuthModal])
+
+    const handleSignUp = useCallback(async () => {
+        if (!email || !password || !firstName || !lastName) {
+            return
+        }
+
+        const user = await signup({
+            username: email,
+            password,
+            firstName,
+            lastName,
+        })
+
+        if (!user) {
+            return alert("User registration failed!")
+        }
+
+        setUserInfo(user)
+        setIsLoggedIn(true)
+
+        toggleAuthModal()
+    }, [email, firstName, lastName, password, setIsLoggedIn, setUserInfo, toggleAuthModal])
 
     const handleContinue = useCallback(async () => {
         if (userFound === null) {
@@ -38,7 +77,7 @@ const AuthModal: FC = () => {
         }
 
         await handleSignUp()
-    }, [userFound])
+    }, [handleLogin, handleSignUp, userFound, verifyEmail])
 
     return (
         <div className="relative z-50">
@@ -56,7 +95,9 @@ const AuthModal: FC = () => {
                                     <IoMdClose/>
                                 </span>
 
-                                <span>Login or signup</span>
+                                {userFound === null && <span>Login or signup</span>}
+                                {userFound === true && <span>Login {email}</span>}
+                                {userFound === false && <span>Signup {email}</span>}
                             </div>
 
                             <div className="p-5">

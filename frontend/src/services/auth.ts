@@ -47,7 +47,7 @@ export const signup = async (signupData: SignUpRequest): Promise<MyProfile | nul
 }
 
 export const checkUser = async (email: string): Promise<Boolean> => {
-    const url = createUrl("/api/check-user")
+    const url = createUrl("/api/user/check")
 
     try {
         const res: { data: CheckUserResponse } = await post(url, { email })
