@@ -8,12 +8,56 @@ generator client {
 }
 
 model User {
-  createdAt DateTime @default(now())
+  createdAt DateTime   @default(now())
   firstName String?
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   lastName  String?
+  listings  Listing[]
   password  String
   roles     Json
+  trips     Trip[]
+  updatedAt DateTime   @updatedAt
+  username  String     @unique
+  wishlists Wishlist[]
+}
+
+model Listing {
+  createdAt          DateTime   @default(now())
+  description        String
+  id                 String     @id @default(cuid())
+  listingCreatedBy   User       @relation(fields: [listingCreatedById], references: [id])
+  listingCreatedById String
+  locationData       Json
+  locationType       String
+  mapData            Json
+  photos             Json
+  placeAmeneties     Json
+  placeSpace         Json
+  placeType          String
+  price              Float?
+  title              String
+  trips              Trip[]
+  updatedAt          DateTime   @updatedAt
+  wishlists          Wishlist[]
+}
+
+model Wishlist {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  listingId String
   updatedAt DateTime @updatedAt
-  username  String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Trip {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  listingId String
+  tripinfo  Json
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
