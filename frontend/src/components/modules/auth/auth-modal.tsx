@@ -1,9 +1,12 @@
 "use client"
 import { FormInput } from "@/components/common"
+import { useStore } from "@/store"
 import React, { FC, useCallback, useState } from "react"
 import { IoMdClose } from "react-icons/io"
 
 const AuthModal: FC = () => {
+    const { toggleAuthModal } = useStore()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [firstName, setFirstName] = useState("")
@@ -48,7 +51,8 @@ const AuthModal: FC = () => {
                                     sm:my-8 sm:w-full sm:max-w-lg">
                         <div className="bg-white pb-4 pt-5">
                             <div className="border-b border-b-gray-200 flex items-center justify-center relative pb-5">
-                                <span className="absolute left-5 cursor-pointer text-lg">
+                                <span className="absolute left-5 cursor-pointer text-lg"
+                                      onClick={() => toggleAuthModal()}>
                                     <IoMdClose/>
                                 </span>
 

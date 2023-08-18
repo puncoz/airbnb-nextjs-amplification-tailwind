@@ -3,6 +3,7 @@ import userDefaultImage from "@/assets/img/user-placeholder.png"
 import { ContextMenu } from "@/components/common"
 import { ContextMenuOption } from "@/components/common/context-menu"
 import { AirBnbLogo } from "@/components/svg"
+import { useStore } from "@/store"
 import Image from "next/image"
 import React, { FC, useState } from "react"
 import { FiGlobe } from "react-icons/fi"
@@ -11,22 +12,36 @@ import { RxHamburgerMenu } from "react-icons/rx"
 const Navbar: FC = () => {
     const [isContextMenuVisible, setIsContextMenuVisible] = useState(false)
 
+    const { toggleAuthModal } = useStore()
+
     const contextMenuOptions: ContextMenuOption[] = [
         {
             name: "Login",
-            callback: () => setIsContextMenuVisible(false),
+            callback: () => {
+                toggleAuthModal()
+                setIsContextMenuVisible(false)
+            }
         },
         {
             name: "Signup",
-            callback: () => setIsContextMenuVisible(false),
+            callback: () => {
+                toggleAuthModal()
+                setIsContextMenuVisible(false)
+            }
         },
         {
             name: "Airbnb your home",
-            callback: () => setIsContextMenuVisible(false),
+            callback: () => {
+                toggleAuthModal()
+                setIsContextMenuVisible(false)
+            }
         },
         {
             name: "Help",
-            callback: () => setIsContextMenuVisible(false),
+            callback: () => {
+                toggleAuthModal()
+                setIsContextMenuVisible(false)
+            }
         },
     ]
 

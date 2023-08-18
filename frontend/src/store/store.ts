@@ -4,6 +4,6 @@ import { create } from "zustand"
 
 type Store = AuthSlice
 
-export const useAppStore = create<Store>()((...a) => ({
+export const useStore = create<Store>()((...a) => ({
     ...createAuthSlice(...a),
 }))
