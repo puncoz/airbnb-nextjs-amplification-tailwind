@@ -62,10 +62,12 @@ const Navbar: FC = () => {
                 </div>
             </div>
 
-            {isContextMenuVisible && <ContextMenu options={contextMenuOptions}
-                                                  coordinates={{ x: window.innerWidth - 250, y: 70 }}
-                                                  contextMenu={isContextMenuVisible}
-                                                  setContextMenu={setIsContextMenuVisible}/>}
+            {isContextMenuVisible && (
+                <ContextMenu options={contextMenuOptions}
+                             coordinates={{ x: window.innerWidth - 250, y: 70 }}
+                             contextMenu={isContextMenuVisible}
+                             setContextMenu={setIsContextMenuVisible}/>
+            )}
         </header>
     )
 }

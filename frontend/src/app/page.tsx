@@ -1,4 +1,5 @@
 import { Footer, Navbar } from "@/components/layout"
+import { AuthModal } from "@/components/modules/auth"
 import React from "react"
 
 const Page = () => {
@@ -7,6 +8,8 @@ const Page = () => {
             <Navbar/>
 
             <Footer/>
+
+            <AuthModal/>
         </div>
     )
 }

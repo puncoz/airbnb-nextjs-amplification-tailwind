@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss"
 
+const defaultTheme = require("tailwindcss/defaultTheme")
+
 const config: Config = {
     content: [
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -19,6 +21,10 @@ const config: Config = {
 
             gridTemplateRows: {
                 "new-listing": "10vh 80vh 10vh",
+            },
+
+            fontFamily: {
+                sans: ["var(--inter-font)", ...defaultTheme.fontFamily.sans],
             },
         },
     },
