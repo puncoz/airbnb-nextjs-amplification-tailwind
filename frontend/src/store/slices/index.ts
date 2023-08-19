@@ -1,1 +1,2 @@
-export { createAuthSlice } from "./AuthSlice"
+export * from "./AuthSlice"
+export * from "./ProcessSlice"
