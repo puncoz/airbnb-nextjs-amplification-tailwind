@@ -2,8 +2,8 @@ import React, { ChangeEvent, FC, useCallback } from "react"
 
 type InputType = "text" | "password"
 
-type SetValueForListing = (name: string, value?: string) => void
-type SetValue = (value: string) => void
+export type SetValueForListing = (name: string, value?: string) => void
+export type SetValue = (value: string) => void
 
 type Props = {
     name: string

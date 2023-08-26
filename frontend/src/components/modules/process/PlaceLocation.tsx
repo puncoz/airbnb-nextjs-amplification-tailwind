@@ -10,15 +10,17 @@ import { Map } from "react-map-gl"
 const PlaceLocation = () => {
     const { setMapData, setLocationData } = useStore()
 
-    const extractFromContext = (context: any, locationData: LocationData) => {
+    const extractFromContext = (context: Array<any>, locationData: LocationData) => {
         if (!context) {
             return locationData
         }
 
         return Object.keys(locationData).reduce((updated, key) => {
-            if (context?.id?.startsWith(`${key}.`)) {
-                updated[key as keyof typeof locationData] = context?.text
-            }
+            context.forEach(item => {
+                if (item?.id?.startsWith(`${key}.`)) {
+                    updated[key as keyof typeof locationData] = item?.text
+                }
+            })
 
             return updated
         }, locationData)

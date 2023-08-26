@@ -2,7 +2,7 @@
 import {
     ListingPlaceType,
     ListingTypeSelector,
-    Overview,
+    Overview, PlaceDetails,
     PlaceLocation,
     StepOneStarter,
 } from "@/components/modules/process"
@@ -25,6 +25,8 @@ const NewListingPage: FC<Props> = () => {
                 return <ListingPlaceType/>
             case 4:
                 return <PlaceLocation/>
+            case 5:
+                return <PlaceDetails/>
             default:
                 return <Overview/>
         }
