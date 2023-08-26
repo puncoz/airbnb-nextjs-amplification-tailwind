@@ -7,6 +7,7 @@ import {
     PlaceDetails,
     PlaceLocation,
     StepOneStarter,
+    StepTwoStarter,
 } from "@/components/modules/process"
 import { AirBnbLogoShort } from "@/components/svg"
 import React, { FC, useState } from "react"
@@ -31,6 +32,8 @@ const NewListingPage: FC<Props> = () => {
                 return <PlaceDetails/>
             case 6:
                 return <FloorPlan/>
+            case 7:
+                return <StepTwoStarter/>
             default:
                 return <Overview/>
         }
