@@ -1,8 +1,10 @@
 "use client"
 import {
+    FloorPlan,
     ListingPlaceType,
     ListingTypeSelector,
-    Overview, PlaceDetails,
+    Overview,
+    PlaceDetails,
     PlaceLocation,
     StepOneStarter,
 } from "@/components/modules/process"
@@ -27,6 +29,8 @@ const NewListingPage: FC<Props> = () => {
                 return <PlaceLocation/>
             case 5:
                 return <PlaceDetails/>
+            case 6:
+                return <FloorPlan/>
             default:
                 return <Overview/>
         }

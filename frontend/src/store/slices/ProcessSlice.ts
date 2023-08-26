@@ -28,21 +28,32 @@ export interface LocationData {
     country: string
 }
 
+export interface PlaceSpace {
+    bathrooms: number
+    beds: number
+    guests: number
+}
+
 export interface ProcessSlice {
     listingType?: ListingType
     placeType?: PlaceType
     mapData?: MapData
     locationData?: LocationData
+    placeSpace: PlaceSpace
 
     setListingType: (listingType?: ListingType) => void
     setPlaceType: (placeType?: PlaceType) => void
     setMapData: (mapData?: MapData) => void
     setLocationData: (locationData?: LocationData) => void
+    setPlaceSpace: (placeSpace?: PlaceSpace) => void
 }
 
 export const createProcessSlice: StateCreator<ProcessSlice> = (set, get) => ({
+    placeSpace: { bathrooms: 1, beds: 2, guests: 4 },
+
     setListingType: (listingType?: ListingType) => set({ listingType }),
     setPlaceType: (placeType?: PlaceType) => set({ placeType }),
     setMapData: (mapData?: MapData) => set({ mapData }),
     setLocationData: (locationData?: LocationData) => set({ locationData }),
+    setPlaceSpace: (placeSpace?: PlaceSpace) => set({ placeSpace }),
 })
