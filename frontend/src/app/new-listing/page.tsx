@@ -3,7 +3,7 @@ import {
     FloorPlan,
     ListingPlaceType,
     ListingTypeSelector,
-    Overview,
+    Overview, Photos,
     PlaceDetails,
     PlaceLocation,
     ProcessAmenities,
@@ -15,7 +15,7 @@ import React, { FC, useState } from "react"
 
 type Props = {}
 const NewListingPage: FC<Props> = () => {
-    const [step, setStep] = useState(0)
+    const [step, setStep] = useState(9)
 
     const getComponent = () => {
         switch (step) {
@@ -37,6 +37,8 @@ const NewListingPage: FC<Props> = () => {
                 return <StepTwoStarter/>
             case 8:
                 return <ProcessAmenities/>
+            case 9:
+                return <Photos/>
             default:
                 return <Overview/>
         }

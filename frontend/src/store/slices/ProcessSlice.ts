@@ -51,6 +51,7 @@ export interface ProcessSlice {
     locationData?: LocationData
     placeSpace: PlaceSpace
     placeAmenities: Array<PlaceAmenity["name"]>,
+    photos: Array<string>
 
     setListingType: (listingType?: ListingType) => void
     setPlaceType: (placeType?: PlaceType) => void
@@ -59,11 +60,13 @@ export interface ProcessSlice {
     setPlaceSpace: (placeSpace?: PlaceSpace) => void
     setPlaceAmenities: (placeAmenities: Array<PlaceAmenity["name"]>) => void
     removePlaceAmenity: (name: PlaceAmenity["name"]) => void
+    setPhotos: (photos: Array<string>) => void
 }
 
 export const createProcessSlice: StateCreator<ProcessSlice> = (set, get) => ({
     placeSpace: { bathrooms: 1, beds: 2, guests: 4 },
     placeAmenities: [],
+    photos: [],
 
     setListingType: (listingType?: ListingType) => set({ listingType }),
     setPlaceType: (placeType?: PlaceType) => set({ placeType }),
@@ -82,4 +85,6 @@ export const createProcessSlice: StateCreator<ProcessSlice> = (set, get) => ({
             set({ placeAmenities: amenities })
         }
     },
+
+    setPhotos: (photos: Array<string>) => set({ photos }),
 })
