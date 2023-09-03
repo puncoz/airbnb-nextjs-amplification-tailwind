@@ -8,7 +8,7 @@ import {
     PlaceLocation,
     ProcessAmenities,
     StepOneStarter,
-    StepTwoStarter,
+    StepTwoStarter, Title,
 } from "@/components/modules/process"
 import { AirBnbLogoShort } from "@/components/svg"
 import React, { FC, useState } from "react"
@@ -39,6 +39,8 @@ const NewListingPage: FC<Props> = () => {
                 return <ProcessAmenities/>
             case 9:
                 return <Photos/>
+            case 10:
+                return <Title/>
             default:
                 return <Overview/>
         }

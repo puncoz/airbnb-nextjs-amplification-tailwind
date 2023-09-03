@@ -3,11 +3,21 @@ import { CldUploadButton } from "next-cloudinary"
 import Image from "next/image"
 import React from "react"
 
+interface CldUploadResults {
+    info?: {
+        secure_url: string
+    };
+}
+
 const Photos = () => {
     const { photos, setPhotos } = useStore()
 
-    const handleUpload = (data) => {
-        setPhotos([...photos, data.info.secure_url])
+    const handleUpload = (results: CldUploadResults & object) => {
+        const url = results.info?.secure_url
+
+        if (url) {
+            setPhotos([...photos, url])
+        }
     }
 
     return (
@@ -20,11 +30,11 @@ const Photos = () => {
             </p>
 
             <CldUploadButton options={{
-                                multiple: true,
-                                folder: "__practice/airbnb-clone",
-                            }}
+                multiple: true,
+                folder: "__practice/airbnb-clone",
+            }}
                              uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_PRESET}
-                             onUpload={handleUpload}>
+                             onUpload={(results) => handleUpload(results as CldUploadResults)}>
                 <span className="bg-airbnb-gradient py-3 mt-5 px-5 text-white text-base font-medium rounded-md
                                 cursor-pointer">
                     Upload
