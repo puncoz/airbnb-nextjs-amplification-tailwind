@@ -1,4 +1,4 @@
-import { listingTypes } from "@/data/listingTypes"
+import { listingTypes } from "@/data"
 import { useStore } from "@/store"
 import React from "react"
 

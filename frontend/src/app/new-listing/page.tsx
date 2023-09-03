@@ -6,6 +6,7 @@ import {
     Overview,
     PlaceDetails,
     PlaceLocation,
+    ProcessAmenities,
     StepOneStarter,
     StepTwoStarter,
 } from "@/components/modules/process"
@@ -34,6 +35,8 @@ const NewListingPage: FC<Props> = () => {
                 return <FloorPlan/>
             case 7:
                 return <StepTwoStarter/>
+            case 8:
+                return <ProcessAmenities/>
             default:
                 return <Overview/>
         }

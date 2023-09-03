@@ -6,6 +6,16 @@ export interface ListingType {
     svgPath: ReactNode
 }
 
+export interface PlaceAmenity {
+    name: string
+    svgPath: ReactNode
+}
+
+export interface PlaceAmenitiesType {
+    type: "basic" | "advanced" | "safety"
+    data: Array<PlaceAmenity>
+}
+
 export interface PlaceType {
     title: string
     subTitle: string
@@ -40,20 +50,36 @@ export interface ProcessSlice {
     mapData?: MapData
     locationData?: LocationData
     placeSpace: PlaceSpace
+    placeAmenities: Array<PlaceAmenity["name"]>,
 
     setListingType: (listingType?: ListingType) => void
     setPlaceType: (placeType?: PlaceType) => void
     setMapData: (mapData?: MapData) => void
     setLocationData: (locationData?: LocationData) => void
     setPlaceSpace: (placeSpace?: PlaceSpace) => void
+    setPlaceAmenities: (placeAmenities: Array<PlaceAmenity["name"]>) => void
+    removePlaceAmenity: (name: PlaceAmenity["name"]) => void
 }
 
 export const createProcessSlice: StateCreator<ProcessSlice> = (set, get) => ({
     placeSpace: { bathrooms: 1, beds: 2, guests: 4 },
+    placeAmenities: [],
 
     setListingType: (listingType?: ListingType) => set({ listingType }),
     setPlaceType: (placeType?: PlaceType) => set({ placeType }),
     setMapData: (mapData?: MapData) => set({ mapData }),
     setLocationData: (locationData?: LocationData) => set({ locationData }),
     setPlaceSpace: (placeSpace?: PlaceSpace) => set({ placeSpace }),
+
+    setPlaceAmenities: (placeAmenities?: Array<PlaceAmenity["name"]>) => set({ placeAmenities }),
+    removePlaceAmenity: (name: PlaceAmenity["name"]) => {
+        const amenities = get().placeAmenities
+
+        const index = amenities.findIndex((amenity) => amenity === name)
+
+        if (index !== -1) {
+            amenities.splice(index, 1)
+            set({ placeAmenities: amenities })
+        }
+    },
 })
