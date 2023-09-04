@@ -1,14 +1,17 @@
 "use client"
 import {
+    Description,
     FloorPlan,
     ListingPlaceType,
     ListingTypeSelector,
-    Overview, Photos,
+    Overview,
+    Photos,
     PlaceDetails,
     PlaceLocation,
     ProcessAmenities,
     StepOneStarter,
-    StepTwoStarter, Title,
+    StepTwoStarter,
+    Title,
 } from "@/components/modules/process"
 import { AirBnbLogoShort } from "@/components/svg"
 import React, { FC, useState } from "react"
@@ -41,6 +44,8 @@ const NewListingPage: FC<Props> = () => {
                 return <Photos/>
             case 10:
                 return <Title/>
+            case 11:
+                return <Description/>
             default:
                 return <Overview/>
         }
