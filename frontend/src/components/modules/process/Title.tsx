@@ -14,7 +14,7 @@ const Title = () => {
         <div className="flex flex-col gap-5 items-center justify-center h-full text-airbnb-light-black">
             <div className="flex flex-col gap-2">
                 <h2 className="font-semibold text-4xl">
-                    Now, let&apos;s give your house a title.
+                    Now, let&apos;s give your house a title
                 </h2>
                 <p>
                     Short titles work best. Have fun with it - you can always change it later.

@@ -8,8 +8,10 @@ import {
     Photos,
     PlaceDetails,
     PlaceLocation,
+    Price,
     ProcessAmenities,
     StepOneStarter,
+    StepThreeStarter,
     StepTwoStarter,
     Title,
 } from "@/components/modules/process"
@@ -18,7 +20,7 @@ import React, { FC, useState } from "react"
 
 type Props = {}
 const NewListingPage: FC<Props> = () => {
-    const [step, setStep] = useState(9)
+    const [step, setStep] = useState(13)
 
     const getComponent = () => {
         switch (step) {
@@ -46,6 +48,10 @@ const NewListingPage: FC<Props> = () => {
                 return <Title/>
             case 11:
                 return <Description/>
+            case 12:
+                return <StepThreeStarter/>
+            case 13:
+                return <Price/>
             default:
                 return <Overview/>
         }
