@@ -44,6 +44,19 @@ export interface PlaceSpace {
     guests: number
 }
 
+export interface ProcessData {
+    locationType?: ListingType["name"]
+    placeType?: PlaceType["title"]
+    mapData?: MapData
+    locationData?: LocationData
+    placeSpace?: PlaceSpace
+    placeAmenities: Array<PlaceAmenity["name"]>,
+    photos: Array<string>
+    title?: string
+    description?: string
+    price: number
+}
+
 export interface ProcessSlice {
     listingType?: ListingType
     placeType?: PlaceType
@@ -67,6 +80,8 @@ export interface ProcessSlice {
     setTitle: (title: string) => void
     setDescription: (description: string) => void
     setPrice: (price: number) => void
+
+    processData: () => ProcessData
 }
 
 export const createProcessSlice: StateCreator<ProcessSlice> = (set, get) => ({
@@ -82,19 +97,37 @@ export const createProcessSlice: StateCreator<ProcessSlice> = (set, get) => ({
     setPlaceSpace: (placeSpace?: PlaceSpace) => set({ placeSpace }),
 
     setPlaceAmenities: (placeAmenities?: Array<PlaceAmenity["name"]>) => set({ placeAmenities }),
-    removePlaceAmenity: (name: PlaceAmenity["name"]) => {
-        const amenities = get().placeAmenities
+    removePlaceAmenity: (name: PlaceAmenity["name"]) => set((state) => {
+        const amenities = [...state.placeAmenities]
 
         const index = amenities.findIndex((amenity) => amenity === name)
 
         if (index !== -1) {
             amenities.splice(index, 1)
-            set({ placeAmenities: amenities })
         }
-    },
+
+        return { ...state, placeAmenities: amenities }
+    }),
 
     setPhotos: (photos: Array<string>) => set({ photos }),
     setTitle: (title: string) => set({ title }),
     setDescription: (description: string) => set({ description }),
     setPrice: (price: number) => set({ price }),
+
+    processData: (): ProcessData => {
+        const state = get()
+
+        return {
+            locationType: state.listingType?.name,
+            placeType: state.placeType?.title,
+            mapData: state.mapData,
+            locationData: state.locationData,
+            placeSpace: state.placeSpace,
+            placeAmenities: state.placeAmenities,
+            photos: state.photos,
+            title: state.title,
+            description: state.description,
+            price: state.price,
+        }
+    },
 })

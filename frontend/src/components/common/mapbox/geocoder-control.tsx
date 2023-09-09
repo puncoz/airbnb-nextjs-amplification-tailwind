@@ -1,3 +1,4 @@
+"use client"
 import MapboxGeoCoder, { Result, Results } from "@mapbox/mapbox-gl-geocoder"
 import React, { ComponentProps, FC, ReactElement, useState } from "react"
 import { ControlPosition, Marker, useControl } from "react-map-gl"

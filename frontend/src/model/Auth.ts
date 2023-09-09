@@ -1,5 +1,5 @@
 export interface MyProfile {
-    id: number
+    id: string
     username: string
     firstName: string
     lastName: string

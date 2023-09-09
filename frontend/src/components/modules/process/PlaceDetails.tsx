@@ -10,8 +10,6 @@ const PlaceDetails = () => {
         setLocationData({ ...locationData, [name]: value } as LocationData)
     }
 
-    console.log(locationData)
-
     return (
         <div className="flex justify-center items-center h-full flex-col gap-2 w-full">
             <div className="flex flex-col gap-3">

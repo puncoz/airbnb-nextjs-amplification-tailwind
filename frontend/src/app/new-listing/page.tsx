@@ -1,7 +1,7 @@
 "use client"
 import {
     Description,
-    FloorPlan,
+    FloorPlan, ListingCreated,
     ListingPlaceType,
     ListingTypeSelector,
     Overview,
@@ -20,7 +20,7 @@ import React, { FC, useState } from "react"
 
 type Props = {}
 const NewListingPage: FC<Props> = () => {
-    const [step, setStep] = useState(13)
+    const [step, setStep] = useState(0)
 
     const getComponent = () => {
         switch (step) {
@@ -52,6 +52,8 @@ const NewListingPage: FC<Props> = () => {
                 return <StepThreeStarter/>
             case 13:
                 return <Price/>
+            case 14:
+                return <ListingCreated/>
             default:
                 return <Overview/>
         }

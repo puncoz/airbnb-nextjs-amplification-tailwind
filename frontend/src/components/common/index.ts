@@ -1,3 +1,5 @@
 export { default as ContextMenu } from "./context-menu"
+export { default as Spinner } from "./spinner"
+export { default as NavigationEvents } from "./navigation-events"
 export * from "./mapbox"
 export * from "./form"
