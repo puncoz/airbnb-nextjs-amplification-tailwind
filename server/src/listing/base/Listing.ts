@@ -94,7 +94,7 @@ class Listing {
   })
   @IsJSONValue()
   @Field(() => GraphQLJSON)
-  placeAmeneties!: JsonValue;
+  placeAmenities!: JsonValue;
 
   @ApiProperty({
     required: true,

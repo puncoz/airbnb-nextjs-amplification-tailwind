@@ -116,7 +116,7 @@ class ListingOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  placeAmeneties?: SortOrder;
+  placeAmenities?: SortOrder;
 
   @ApiProperty({
     required: false,

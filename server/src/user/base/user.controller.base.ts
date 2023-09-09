@@ -240,7 +240,7 @@ export class UserControllerBase {
         locationType: true,
         mapData: true,
         photos: true,
-        placeAmeneties: true,
+        placeAmenities: true,
         placeSpace: true,
         placeType: true,
         price: true,

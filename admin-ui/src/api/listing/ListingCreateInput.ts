@@ -10,7 +10,7 @@ export type ListingCreateInput = {
   locationType: string;
   mapData: InputJsonValue;
   photos: InputJsonValue;
-  placeAmeneties: InputJsonValue;
+  placeAmenities: InputJsonValue;
   placeSpace: InputJsonValue;
   placeType: string;
   price?: number | null;

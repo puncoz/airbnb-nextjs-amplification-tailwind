@@ -99,7 +99,7 @@ class ListingUpdateInput {
   @Field(() => GraphQLJSON, {
     nullable: true,
   })
-  placeAmeneties?: InputJsonValue;
+  placeAmenities?: InputJsonValue;
 
   @ApiProperty({
     required: false,
