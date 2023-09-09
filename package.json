@@ -3,14 +3,15 @@
   "description": "A airbnb clone application build in Next.js 13, Amplification, TailwindCss and Prisma",
   "workspaces": [
     "frontend",
-    "backend"
+    "admin-ui",
+    "server"
   ],
   "engines": {
     "node": ">=v18",
     "npm": ">=9.8"
   },
   "scripts": {
-    "lerna": "lerna run --stream --concurrency 2",
+    "lerna": "lerna run --stream --concurrency 3",
     "dev": "yarn lerna dev"
   },
   "private": "true",

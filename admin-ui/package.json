@@ -1,6 +1,7 @@
 {
-  "name": "@airbnb-clone-server/admin",
+  "name": "@airbnb-clone/admin",
   "private": true,
+  "version": "0.0.0",
   "dependencies": {
     "@apollo/client": "3.6.9",
     "@material-ui/core": "4.12.4",
@@ -21,6 +22,7 @@
     }
   },
   "scripts": {
+    "dev": "yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
