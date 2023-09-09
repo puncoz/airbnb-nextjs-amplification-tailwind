@@ -31,7 +31,7 @@ model Listing {
   locationType       String
   mapData            Json
   photos             Json
-  placeAmeneties     Json
+  placeAmenities     Json
   placeSpace         Json
   placeType          String
   price              Float?

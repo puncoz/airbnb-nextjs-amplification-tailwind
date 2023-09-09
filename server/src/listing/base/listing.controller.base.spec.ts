@@ -184,7 +184,7 @@ describe("Listing", () => {
   });
 
   test("POST /listings existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/listings")
       .send(CREATE_INPUT)

@@ -164,7 +164,7 @@ describe("Wishlist", () => {
   });
 
   test("POST /wishlists existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/wishlists")
       .send(CREATE_INPUT)

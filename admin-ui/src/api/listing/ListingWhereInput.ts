@@ -13,7 +13,7 @@ export type ListingWhereInput = {
   locationType?: StringFilter;
   mapData?: JsonFilter;
   photos?: JsonFilter;
-  placeAmeneties?: JsonFilter;
+  placeAmenities?: JsonFilter;
   placeSpace?: JsonFilter;
   placeType?: StringFilter;
   price?: FloatNullableFilter;

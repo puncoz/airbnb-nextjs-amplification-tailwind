@@ -78,7 +78,7 @@ class ListingCreateInput {
   })
   @IsJSONValue()
   @Field(() => GraphQLJSON)
-  placeAmeneties!: InputJsonValue;
+  placeAmenities!: InputJsonValue;
 
   @ApiProperty({
     required: true,
