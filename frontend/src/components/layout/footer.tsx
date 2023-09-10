@@ -9,7 +9,7 @@ const Footer: FC = () => {
     ]
 
     return (
-        <div className="px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white
+        <footer className="px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white
                         items-center">
             <ul className="flex gap-3 font-normal">
                 <li>&copy; {new Date().getFullYear()} AirBnb Clone, Inc.</li>
@@ -35,7 +35,7 @@ const Footer: FC = () => {
                     Support & resources <PiCaretUpBold/>
                 </li>
             </ul>
-        </div>
+        </footer>
     )
 }
 

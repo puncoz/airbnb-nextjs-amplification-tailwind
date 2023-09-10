@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { StateCreator } from "zustand"
+import { LocationData, MapData, PlaceSpace } from "."
 
 export interface ListingType {
     name: string
@@ -20,28 +21,6 @@ export interface PlaceType {
     title: string
     subTitle: string
     svg: ReactNode
-}
-
-export interface MapData {
-    latitude: number
-    longitude: number
-}
-
-export interface LocationData {
-    landmark: string
-    neighborhood: string
-    postcode: string
-    locality: string
-    place: string
-    district: string
-    region: string
-    country: string
-}
-
-export interface PlaceSpace {
-    bathrooms: number
-    beds: number
-    guests: number
 }
 
 export interface ProcessData {

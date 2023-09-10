@@ -51,7 +51,7 @@ type Listing {
   locationType: String!
   mapData: JSON!
   photos: JSON!
-  placeAmeneties: JSON!
+  placeAmenities: JSON!
   placeSpace: JSON!
   placeType: String!
   price: Float
@@ -68,7 +68,7 @@ input ListingCreateInput {
   locationType: String!
   mapData: JSON!
   photos: JSON!
-  placeAmeneties: JSON!
+  placeAmenities: JSON!
   placeSpace: JSON!
   placeType: String!
   price: Float
@@ -96,7 +96,7 @@ input ListingOrderByInput {
   locationType: SortOrder
   mapData: SortOrder
   photos: SortOrder
-  placeAmeneties: SortOrder
+  placeAmenities: SortOrder
   placeSpace: SortOrder
   placeType: SortOrder
   price: SortOrder
@@ -111,7 +111,7 @@ input ListingUpdateInput {
   locationType: String
   mapData: JSON
   photos: JSON
-  placeAmeneties: JSON
+  placeAmenities: JSON
   placeSpace: JSON
   placeType: String
   price: Float
@@ -134,7 +134,7 @@ input ListingWhereInput {
   locationType: StringFilter
   mapData: JsonFilter
   photos: JsonFilter
-  placeAmeneties: JsonFilter
+  placeAmenities: JsonFilter
   placeSpace: JsonFilter
   placeType: StringFilter
   price: FloatNullableFilter

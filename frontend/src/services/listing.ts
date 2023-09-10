@@ -22,10 +22,14 @@ export const createListingApi = async (data: CreateListingApiData) => {
 
 export const getAllListingApi = async () => {
     const query = stringify({
-        orderBy: {
-            createdAt: "asc",
-        },
-    } as any)
+        // orderBy: {
+        //     createdAt: "asc",
+        // },
+    } as any, "&", "=", {
+        encodeURIComponent: (str: string) => str,
+    })
+
+    console.log(query, "query")
 
     const result = await get(createUrl(`/api/listings?${query}`)).catch(() => null)
 
