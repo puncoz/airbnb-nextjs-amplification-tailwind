@@ -9,8 +9,8 @@ const Footer: FC = () => {
     ]
 
     return (
-        <footer className="px-20 border-t border-t-gray-200 py-4 flex justify-between w-full text-sm z-50 bg-white
-                        items-center">
+        <footer className="px-20 border-t border-t-gray-200 w-full h-16 text-sm z-50 bg-white
+                        flex justify-between items-center">
             <ul className="flex gap-3 font-normal">
                 <li>&copy; {new Date().getFullYear()} AirBnb Clone, Inc.</li>
                 {links.map(link => (
