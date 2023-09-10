@@ -19,6 +19,7 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { Public } from "../../decorators/public.decorator";
 import { CreateWishlistArgs } from "./CreateWishlistArgs";
 import { UpdateWishlistArgs } from "./UpdateWishlistArgs";
 import { DeleteWishlistArgs } from "./DeleteWishlistArgs";
@@ -164,15 +165,10 @@ export class WishlistResolverBase {
     }
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @graphql.ResolveField(() => Listing, {
     nullable: true,
     name: "listing",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "Listing",
-    action: "read",
-    possession: "any",
   })
   async resolveFieldListing(
     @graphql.Parent() parent: Wishlist
