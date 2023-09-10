@@ -21,6 +21,7 @@ import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
 import { UserService } from "../user.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { Public } from "../../decorators/public.decorator";
 import { UserCreateInput } from "./UserCreateInput";
 import { UserWhereInput } from "./UserWhereInput";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
@@ -210,14 +211,9 @@ export class UserControllerBase {
     }
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @common.Get("/:id/listings")
   @ApiNestedQuery(ListingFindManyArgs)
-  @nestAccessControl.UseRoles({
-    resource: "Listing",
-    action: "read",
-    possession: "any",
-  })
   async findManyListings(
     @common.Req() request: Request,
     @common.Param() params: UserWhereUniqueInput

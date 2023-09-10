@@ -19,6 +19,7 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { Public } from "../../decorators/public.decorator";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
@@ -138,13 +139,8 @@ export class UserResolverBase {
     }
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @graphql.ResolveField(() => [Listing], { name: "listings" })
-  @nestAccessControl.UseRoles({
-    resource: "Listing",
-    action: "read",
-    possession: "any",
-  })
   async resolveFieldListings(
     @graphql.Parent() parent: User,
     @graphql.Args() args: ListingFindManyArgs

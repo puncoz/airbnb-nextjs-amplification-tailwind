@@ -17,8 +17,9 @@ import * as nestAccessControl from "nest-access-control";
 import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
-import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { Public } from "../../decorators/public.decorator";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { CreateListingArgs } from "./CreateListingArgs";
 import { UpdateListingArgs } from "./UpdateListingArgs";
 import { DeleteListingArgs } from "./DeleteListingArgs";
@@ -40,12 +41,8 @@ export class ListingResolverBase {
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
 
+  @Public()
   @graphql.Query(() => MetaQueryPayload)
-  @nestAccessControl.UseRoles({
-    resource: "Listing",
-    action: "read",
-    possession: "any",
-  })
   async _listingsMeta(
     @graphql.Args() args: ListingCountArgs
   ): Promise<MetaQueryPayload> {
@@ -55,26 +52,16 @@ export class ListingResolverBase {
     };
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @graphql.Query(() => [Listing])
-  @nestAccessControl.UseRoles({
-    resource: "Listing",
-    action: "read",
-    possession: "any",
-  })
   async listings(
     @graphql.Args() args: ListingFindManyArgs
   ): Promise<Listing[]> {
     return this.service.findMany(args);
   }
 
-  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @Public()
   @graphql.Query(() => Listing, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Listing",
-    action: "read",
-    possession: "own",
-  })
   async listing(
     @graphql.Args() args: ListingFindUniqueArgs
   ): Promise<Listing | null> {
