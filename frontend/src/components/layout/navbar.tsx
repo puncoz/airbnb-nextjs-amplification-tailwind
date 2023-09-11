@@ -7,6 +7,7 @@ import { useUtils } from "@/hooks/useUtils"
 import { clearToken } from "@/services/token"
 import { useStore } from "@/store"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import React, { FC, useState } from "react"
 import { FiGlobe } from "react-icons/fi"
 import { RxHamburgerMenu } from "react-icons/rx"
@@ -16,6 +17,8 @@ const Navbar: FC = () => {
 
     const { toggleAuthModal, userInfo, isLoggedIn, setUserInfo, setIsLoggedIn } = useStore()
     const { getInitials } = useUtils()
+
+    const router = useRouter()
 
     const contextMenuOptions: ContextMenuOption[] = [
         {
@@ -64,17 +67,20 @@ const Navbar: FC = () => {
         {
             name: "Trips",
             callback: () => {
+                router.push("/trips")
                 setIsContextMenuVisible(false)
             },
         },
         {
             name: "Wishlists",
             callback: () => {
+                router.push("/wishlists")
                 setIsContextMenuVisible(false)
             },
         }, {
             name: "Manage Listings",
             callback: () => {
+                router.push("/my-listings")
                 setIsContextMenuVisible(false)
             },
         },
@@ -101,16 +107,19 @@ const Navbar: FC = () => {
                             border-b border-b-gray-200">
             <div className="flex items-center justify-between px-20">
                 <div className="flex-grow basis-0">
-                    <div className="w-max cursor-pointer">
+                    <div className="w-max cursor-pointer" onClick={() => router.push("/")}>
                         <AirBnbLogo/>
                     </div>
                 </div>
 
                 <div className="flex-grow basis-0">
                     <ul className="flex items-center justify-end gap-6 font-medium">
-                        <li className="cursor-pointer">
-                            <span>Airbnb your home</span>
-                        </li>
+                        {isLoggedIn && (
+                            <li className="cursor-pointer"
+                                onClick={() => router.push("/new-listing")}>
+                                <span>Airbnb your home</span>
+                            </li>
+                        )}
 
                         <li className="cursor-pointer">
                             <FiGlobe/>

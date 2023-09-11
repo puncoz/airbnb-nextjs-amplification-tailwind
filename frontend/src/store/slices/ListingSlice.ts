@@ -44,15 +44,26 @@ export interface Listing {
 export interface ListingSlice {
     listings: Listing[]
     isMapview: boolean
+    userListings: Listing[]
 
     setListings: (listings: Listing[]) => void
     toggleMapView: () => void
+    setUserListings: (listings: Listing[]) => void
+    removeUserListing: (id: string) => void
 }
 
 export const createListingSlice: StateCreator<ListingSlice> = (set, get) => ({
     listings: [],
     isMapview: false,
+    userListings: [],
 
     setListings: (listings: Listing[]) => set({ listings }),
     toggleMapView: () => set({ isMapview: !get().isMapview }),
+    setUserListings: (userListings: Listing[]) => set({ userListings }),
+
+    removeUserListing: (id: string) => {
+        const userListings = get().userListings
+        const newListings = userListings.filter(listing => listing.id !== id)
+        set({ userListings: newListings })
+    },
 })

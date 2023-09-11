@@ -4,7 +4,7 @@ import { useStore } from "@/store"
 import { useEffect } from "react"
 
 const NavigationEvents = () => {
-    const { userInfo, setUserInfo } = useStore()
+    const { userInfo, setUserInfo, setIsLoggedIn } = useStore()
 
     useEffect(() => {
         if (!userInfo) {
@@ -12,11 +12,12 @@ const NavigationEvents = () => {
                 const data = await me()
 
                 setUserInfo(data)
+                setIsLoggedIn(true)
             }
 
             getData().then()
         }
-    }, [setUserInfo, userInfo])
+    }, [setIsLoggedIn, setUserInfo, userInfo])
 
     return null
 }

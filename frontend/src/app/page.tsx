@@ -1,11 +1,14 @@
 "use client"
-import { Footer, Navbar } from "@/components/layout"
+import { Footer } from "@/components/layout"
 import { AuthModal } from "@/components/modules/auth"
 import { ListView, MapView, ViewSwitchBadge } from "@/components/modules/listings"
 import { listingTypes } from "@/data"
 import { getAllListingApi } from "@/services/listing"
 import { useStore } from "@/store"
+import dynamic from "next/dynamic"
 import React, { useEffect } from "react"
+
+const Navbar = dynamic(() => import("@/components/layout/navbar"), { ssr: false })
 
 const Page = () => {
     const { isAuthModalOpen, isMapview, setListings } = useStore()
@@ -46,8 +49,8 @@ const Page = () => {
             </div>
 
             <ViewSwitchBadge/>
-            
-            <div className="h-[calc(100vh_-_9rem)]">
+
+            <div className="h-[calc(100vh_-_14rem)]">
                 {isMapview ? <MapView/> : <ListView/>}
             </div>
 
