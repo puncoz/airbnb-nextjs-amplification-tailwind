@@ -41,21 +41,34 @@ export interface Listing {
     updatedAt: string
 }
 
+export interface WishList {
+    id: string
+    createdAt: string
+    updatedAt: string
+    listing: Listing
+}
+
 export interface ListingSlice {
     listings: Listing[]
     isMapview: boolean
     userListings: Listing[]
 
+    wishLists: WishList[]
+
     setListings: (listings: Listing[]) => void
     toggleMapView: () => void
     setUserListings: (listings: Listing[]) => void
     removeUserListing: (id: string) => void
+
+    setWishLists: (wishLists: WishList[]) => void
+    addToWishList: (wishList: WishList) => void
 }
 
 export const createListingSlice: StateCreator<ListingSlice> = (set, get) => ({
     listings: [],
     isMapview: false,
     userListings: [],
+    wishLists: [],
 
     setListings: (listings: Listing[]) => set({ listings }),
     toggleMapView: () => set({ isMapview: !get().isMapview }),
@@ -65,5 +78,12 @@ export const createListingSlice: StateCreator<ListingSlice> = (set, get) => ({
         const userListings = get().userListings
         const newListings = userListings.filter(listing => listing.id !== id)
         set({ userListings: newListings })
+    },
+
+    setWishLists: (wishLists: WishList[]) => set({ wishLists }),
+    addToWishList: (wishList: WishList) => {
+        const wishLists = [...get().wishLists]
+        wishLists.push(wishList)
+        set({ wishLists })
     },
 })

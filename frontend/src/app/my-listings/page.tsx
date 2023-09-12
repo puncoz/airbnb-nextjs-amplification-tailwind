@@ -1,7 +1,7 @@
 "use client"
 import { Footer } from "@/components/layout"
 import { ListingCard } from "@/components/modules/listings"
-import { getUserListings } from "@/services/listing"
+import { getUserListingsApi } from "@/services/listing"
 import { useStore } from "@/store"
 import dynamic from "next/dynamic"
 import React, { useEffect } from "react"
@@ -17,7 +17,7 @@ const MyListingsPage = () => {
                 return
             }
 
-            const data = await getUserListings(userInfo.id)
+            const data = await getUserListingsApi(userInfo.id)
 
             setUserListings(data)
         }

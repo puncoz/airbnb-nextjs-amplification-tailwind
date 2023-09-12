@@ -1,8 +1,9 @@
-import { deleteListingApi } from "@/services/listing"
+import { addToWishListsApi, deleteListingApi, removeFromWishListsApi } from "@/services/listing"
 import { useStore } from "@/store"
 import { Listing } from "@/store/slices"
 import Image from "next/image"
-import React, { FC } from "react"
+import React, { FC, useCallback } from "react"
+import { IoMdHeart } from "react-icons/io"
 
 type Props = {
     data: Listing
@@ -10,7 +11,14 @@ type Props = {
     className?: string
 }
 const ListingCard: FC<Props> = ({ data, className, isMyListing = false }) => {
-    const { removeUserListing } = useStore()
+    const {
+        removeUserListing,
+        userInfo,
+        isLoggedIn,
+        wishLists,
+        addToWishList,
+        setWishLists,
+    } = useStore()
 
     const deleteListing = async () => {
         const response = await deleteListingApi(data.id)
@@ -20,6 +28,34 @@ const ListingCard: FC<Props> = ({ data, className, isMyListing = false }) => {
         }
     }
 
+    const addWishList = async () => {
+        if (!userInfo) {
+            return
+        }
+
+        const wishList = await addToWishListsApi(data.id, userInfo.id)
+        addToWishList(wishList)
+    }
+
+    const deleteWishList = async () => {
+        if (!userInfo) {
+            return
+        }
+
+        const wishList = wishLists.find((item) => item.listing.id === data.id)
+        if (!wishList) {
+            return
+        }
+        await removeFromWishListsApi(wishList.id)
+
+        const updatedList = [...wishLists].filter((item) => item.id !== wishList.id)
+        setWishLists(updatedList)
+    }
+
+    const isInWishList = useCallback(() => {
+        return wishLists.map(wishList => wishList.listing.id).includes(data.id)
+    }, [data.id, wishLists])
+
     return (
         <div className={`flex items-center justify-center flex-col gap-2 cursor-pointer w-full
                         ${className || ""}`}>
@@ -28,6 +64,20 @@ const ListingCard: FC<Props> = ({ data, className, isMyListing = false }) => {
                        fill
                        alt="listing"
                        className="rounded-lg object-cover"/>
+
+                {isLoggedIn && (
+                    <div className="absolute z-20 right-2 top-2">
+                        <IoMdHeart style={{ stroke: "white", strokeWidth: "40" }}
+                                   className={`
+                                        text-3xl
+                                        ${isInWishList() ? "text-airbnb-theme-color" : "text-black"}
+                                   `}
+                                   onClick={(e) => {
+                                       e.stopPropagation()
+                                       isInWishList() ? deleteWishList() : addWishList()
+                                   }}/>
+                    </div>
+                )}
             </div>
 
             <div className="w-full">

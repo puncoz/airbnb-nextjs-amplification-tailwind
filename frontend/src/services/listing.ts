@@ -1,5 +1,5 @@
 import { createUrl, deleteCall, get, post } from "@/services/http"
-import { ProcessData } from "@/store/slices"
+import { ProcessData, WishList } from "@/store/slices"
 import { stringify } from "qs"
 
 export interface CreateListingApiData extends ProcessData {
@@ -38,7 +38,7 @@ export const getAllListingApi = async () => {
     return result.data
 }
 
-export const getUserListings = async (userId: string) => {
+export const getUserListingsApi = async (userId: string) => {
     const query = stringify({
         where: {
             listingCreatedBy: {
@@ -64,4 +64,50 @@ export const deleteListingApi = async (id: string) => {
     }
 
     return result.data
+}
+
+export const getUserWishListsApi = async (userId: string): Promise<WishList[]> => {
+    const query = stringify({
+        where: {
+            user: {
+                id: userId,
+            },
+        },
+        select: {
+            listing: true,
+        },
+    })
+
+    const result = await get(createUrl(`/api/wishlists?${query}`)).catch(() => null)
+
+    if (!result || !result.data) {
+        alert("Couldn't get wishlists")
+        return []
+    }
+
+    return result.data
+}
+
+export const addToWishListsApi = async (id: string, userId: string): Promise<WishList> => {
+    const query = {
+        listing: { id },
+        user: { id: userId },
+    }
+
+    const result = await post(createUrl("/api/wishlists"), query).catch(() => null)
+
+    if (!result || !result.data) {
+        alert("Couldn't add to wishlist")
+        throw new Error("Couldn't add to wishlist")
+    }
+
+    return result.data
+}
+
+export const removeFromWishListsApi = async (id: string) => {
+    const result = await deleteCall(createUrl(`/api/wishlists/${id}`)).catch(() => null)
+
+    if (!result || !result.data) {
+        alert("Couldn't remove from wishlist")
+    }
 }

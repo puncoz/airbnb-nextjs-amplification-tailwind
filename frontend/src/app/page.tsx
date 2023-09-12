@@ -3,7 +3,7 @@ import { Footer } from "@/components/layout"
 import { AuthModal } from "@/components/modules/auth"
 import { ListView, MapView, ViewSwitchBadge } from "@/components/modules/listings"
 import { listingTypes } from "@/data"
-import { getAllListingApi } from "@/services/listing"
+import { getAllListingApi, getUserWishListsApi } from "@/services/listing"
 import { useStore } from "@/store"
 import dynamic from "next/dynamic"
 import React, { useEffect } from "react"
@@ -11,17 +11,27 @@ import React, { useEffect } from "react"
 const Navbar = dynamic(() => import("@/components/layout/navbar"), { ssr: false })
 
 const Page = () => {
-    const { isAuthModalOpen, isMapview, setListings } = useStore()
+    const {
+        isAuthModalOpen,
+        isMapview,
+        setListings,
+        userInfo,
+        setWishLists,
+    } = useStore()
 
     useEffect(() => {
         const getData = async () => {
-            const data = await getAllListingApi()
+            const lists = await getAllListingApi()
+            setListings(lists)
 
-            setListings(data)
+            if (userInfo) {
+                const wishLists = await getUserWishListsApi(userInfo?.id)
+                setWishLists(wishLists)
+            }
         }
 
         getData().then()
-    }, [setListings])
+    }, [setListings, setWishLists, userInfo])
 
     return (
         <div className="">
