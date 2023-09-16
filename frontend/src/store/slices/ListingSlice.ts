@@ -28,6 +28,8 @@ export interface Listing {
     id: string
     listingCreatedBy: {
         id: string
+        firstName: string
+        lastName: string
     }
     locationData: LocationData
     locationType: string
@@ -52,6 +54,7 @@ export interface ListingSlice {
     listings: Listing[]
     isMapview: boolean
     userListings: Listing[]
+    currentListing: Listing | null
 
     wishLists: WishList[]
 
@@ -62,6 +65,8 @@ export interface ListingSlice {
 
     setWishLists: (wishLists: WishList[]) => void
     addToWishList: (wishList: WishList) => void
+
+    setCurrentListing: (listing: Listing | null) => void
 }
 
 export const createListingSlice: StateCreator<ListingSlice> = (set, get) => ({
@@ -69,6 +74,7 @@ export const createListingSlice: StateCreator<ListingSlice> = (set, get) => ({
     isMapview: false,
     userListings: [],
     wishLists: [],
+    currentListing: null,
 
     setListings: (listings: Listing[]) => set({ listings }),
     toggleMapView: () => set({ isMapview: !get().isMapview }),
@@ -86,4 +92,6 @@ export const createListingSlice: StateCreator<ListingSlice> = (set, get) => ({
         wishLists.push(wishList)
         set({ wishLists })
     },
+
+    setCurrentListing: (listing: Listing | null) => set({ currentListing: listing }),
 })

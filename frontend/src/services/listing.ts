@@ -1,5 +1,5 @@
 import { createUrl, deleteCall, get, post } from "@/services/http"
-import { ProcessData, WishList } from "@/store/slices"
+import { Listing, ProcessData, WishList } from "@/store/slices"
 import { stringify } from "qs"
 
 export interface CreateListingApiData extends ProcessData {
@@ -110,4 +110,45 @@ export const removeFromWishListsApi = async (id: string) => {
     if (!result || !result.data) {
         alert("Couldn't remove from wishlist")
     }
+}
+
+export const getListDetailsApi = async (listingId: string): Promise<Listing> => {
+    const result = await get(createUrl(`/api/listings/${listingId}`)).catch(() => null)
+
+    if (!result || !result.data) {
+        alert("Couldn't get listing details")
+        throw new Error("Couldn't get listing details")
+    }
+
+    return result.data
+}
+
+export interface TripRequestData {
+    listingId: string
+    userId: string
+    tripData: {
+        startDate: string
+        endDate: string
+        price: string
+    },
+}
+
+export const addTrip = async (data: TripRequestData) => {
+    const query = {
+        listing: {
+            id: data.listingId,
+        },
+        user: {
+            id: data.userId,
+        },
+        tripinfo: data.tripData,
+    }
+
+    const result = await post(createUrl("/api/trips"), { ...query })
+
+    if (!result) {
+        alert("Failed to create trips.")
+    }
+
+    return result
 }

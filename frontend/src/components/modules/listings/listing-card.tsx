@@ -2,6 +2,7 @@ import { addToWishListsApi, deleteListingApi, removeFromWishListsApi } from "@/s
 import { useStore } from "@/store"
 import { Listing } from "@/store/slices"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import React, { FC, useCallback } from "react"
 import { IoMdHeart } from "react-icons/io"
 
@@ -29,6 +30,8 @@ const ListingCard: FC<Props> = (props) => {
         addToWishList,
         setWishLists,
     } = useStore()
+
+    const router = useRouter()
 
     const deleteListing = async () => {
         const response = await deleteListingApi(data.id)
@@ -68,7 +71,8 @@ const ListingCard: FC<Props> = (props) => {
 
     return (
         <div className={`flex items-center justify-center flex-col gap-2 cursor-pointer w-full
-                        ${className || ""}`}>
+                        ${className || ""}`}
+             onClick={() => router.push(`/listings/${data.id}`)}>
             <div className="relative min-w-full w-full aspect-square">
                 <Image src={data.photos[0]}
                        fill
