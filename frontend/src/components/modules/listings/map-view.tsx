@@ -44,7 +44,7 @@ const MapView: FC = () => {
                            anchor="top"
                            onClose={() => setPopupInfo(null)}>
                         <div className="flex">
-                            <ListingCard data={popupInfo} className="!w-64"/>
+                            <ListingCard data={popupInfo} className="!w-64" isPublicListing/>
                         </div>
                     </Popup>
                 )}

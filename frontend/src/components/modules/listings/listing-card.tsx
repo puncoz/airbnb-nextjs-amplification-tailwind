@@ -7,10 +7,20 @@ import { IoMdHeart } from "react-icons/io"
 
 type Props = {
     data: Listing
+    isPublicListing?: boolean
     isMyListing?: boolean
+    isWishList?: boolean
     className?: string
 }
-const ListingCard: FC<Props> = ({ data, className, isMyListing = false }) => {
+const ListingCard: FC<Props> = (props) => {
+    const {
+        data,
+        className,
+        isPublicListing = false,
+        isMyListing = false,
+        isWishList = false,
+    } = props
+
     const {
         removeUserListing,
         userInfo,
@@ -65,7 +75,7 @@ const ListingCard: FC<Props> = ({ data, className, isMyListing = false }) => {
                        alt="listing"
                        className="rounded-lg object-cover"/>
 
-                {isLoggedIn && (
+                {isPublicListing && isLoggedIn && (
                     <div className="absolute z-20 right-2 top-2">
                         <IoMdHeart style={{ stroke: "white", strokeWidth: "40" }}
                                    className={`
@@ -90,6 +100,14 @@ const ListingCard: FC<Props> = ({ data, className, isMyListing = false }) => {
                                     cursor-pointer w-full"
                         onClick={deleteListing}>
                     Delete
+                </button>
+            )}
+
+            {isWishList && (
+                <button className="bg-airbnb-gradient py-3 mt-5 px-5 text-white text-base font-medium rounded-md
+                                    cursor-pointer w-full"
+                        onClick={deleteWishList}>
+                    Remove from wish list
                 </button>
             )}
         </div>

@@ -12,7 +12,9 @@ const NavigationEvents = () => {
                 const data = await me()
 
                 setUserInfo(data)
-                setIsLoggedIn(true)
+                if (data) {
+                    setIsLoggedIn(true)
+                }
             }
 
             getData().then()
