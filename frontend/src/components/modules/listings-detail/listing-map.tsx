@@ -26,7 +26,7 @@ const ListingMap: FunctionComponent = () => {
 
     return (
         <div className="h-96 w-full">
-            <Map scrollZoom={true}
+            <Map scrollZoom={false}
                  dragPan={false}
                  dragRotate={false}
                  doubleClickZoom={false}

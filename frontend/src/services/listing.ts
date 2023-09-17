@@ -27,8 +27,6 @@ export const getAllListingApi = async () => {
         },
     })
 
-    console.log(query, "query")
-
     const result = await get(createUrl(`/api/listings?${query}`)).catch(() => null)
 
     if (!result || !result.data) {
@@ -151,4 +149,37 @@ export const addTrip = async (data: TripRequestData) => {
     }
 
     return result
+}
+
+export interface TripData {
+    id: string
+    listing: Listing
+    tripinfo: TripRequestData["tripData"]
+    createdAt: string
+    updatedAt: string
+    user: {
+        id: string
+    }
+}
+
+export const getUserTripsApi = async (userId: string): Promise<TripData[]> => {
+    const query = stringify({
+        where: {
+            user: { id: userId },
+        },
+        select: {
+            listing: true,
+        },
+    })
+
+    const result = await get(createUrl(`/api/trips?${query}`)).catch(() => null)
+
+    if (!result || !result.data) {
+        alert("Couldn't get trips")
+        throw new Error("Couldn't get trips")
+    }
+
+    console.log(result.data, "tripdata")
+
+    return result.data
 }
